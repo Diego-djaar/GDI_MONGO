@@ -41,41 +41,42 @@ print("Número de agendamentos para o serviço 1:", count);
 
 // encontrar o serviço mais caro
 var mostExpensiveService = db.services.find().sort({ price: -1 }).limit(1);
-printjson(mostExpensiveService);
+printjson("Serviço mais caro: ", mostExpensiveService);
 
 // calcular a media dos preços
-db.services.aggregate([
+db.services
+  .aggregate([
     {
       $group: {
         _id: null,
-        averagePrice: { $avg: "$price" }
-      }
-    }
-  ]).forEach(printjson);
+        averagePrice: { $avg: "$price" },
+      },
+    },
+  ])
+  .forEach(printjson);
 
 // serviços mais caros ou igual a 50
 
-  db.services.find({ price: { $gte: 50 } }).forEach(printjson);
-
+db.services.find({ price: { $gte: 50 } }).forEach(printjson);
 
 // profissional com o maior numero de serviços oferecidos
 
-db.professionals.aggregate([
+db.professionals
+  .aggregate([
     {
       $project: {
         name: 1,
-        numberOfServices: { $size: "$services" }
-      }
+        numberOfServices: { $size: "$services" },
+      },
     },
     {
-      $sort: { numberOfServices: -1 }
+      $sort: { numberOfServices: -1 },
     },
     {
-      $limit: 1
-    }
-  ]).forEach(printjson);
-
-  
+      $limit: 1,
+    },
+  ])
+  .forEach(printjson);
 
 // buscar dados de um cliente especifico
 
@@ -88,68 +89,66 @@ db.clients.insertOne({
   clientId: "c4",
   name: "Fernanda Lima",
   email: "fernanda.lima@example.com",
-  phone: "21999999999"
+  phones: [21999999999],
 });
-
 
 //updateone
 
 db.services.updateOne(
-  { serviceId: "1" }, 
-  { $set: { description: "Corte de cabelo unissex, inclui lavagem e secagem." } } 
+  { serviceId: "1" },
+  {
+    $set: { description: "Corte de cabelo unissex, inclui lavagem e secagem." },
+  }
 );
 
 // usa search e text para pegar uma descrição de um serviço q contenha uma palavra especifica
 
 db.services.createIndex({ description: "text" }); //cria um indice p poder usar $text
 
-
 db.services.find({ $text: { $search: "cabelo" } }).pretty();
-
 
 //preço maximo de um serviço
 
 db.services.aggregate([
   {
     $group: {
-      _id: null, 
-      maxPrice: { $max: "$price" } 
-    }
-  }
+      _id: null,
+      maxPrice: { $max: "$price" },
+    },
+  },
 ]);
 
 // uso de all / dados dos profissionais que oferecem ambos serviços 1 e 2
 db.professionals.find({
-  services: { $all: ["1", "2"] }
+  services: { $all: ["1", "2"] },
 });
-
 
 // retorna informações sobre um agendamento espfecifico e sobre o cliente que agendou
 db.appointments.aggregate([
   {
     $match: {
       serviceId: "2",
-      status: "agendado"
-    }
+      status: "agendado",
+    },
   },
   {
     $lookup: {
       from: "clients",
       localField: "clientId",
       foreignField: "clientId",
-      as: "clientDetails"
-    }
+      as: "clientDetails",
+    },
   },
   {
     $lookup: {
       from: "services",
       localField: "serviceId",
       foreignField: "serviceId",
-      as: "serviceDetails"
-    }
+      as: "serviceDetails",
+    },
   },
   {
-    $unwind: "$serviceDetails"
+    $unwind: "$serviceDetails",
   },
   {
     $project: {
@@ -159,32 +158,28 @@ db.appointments.aggregate([
       status: 1,
       date: 1,
       clientDetails: 1,
-      serviceName: "$serviceDetails.name"
-    }
-  }
+      serviceName: "$serviceDetails.name",
+    },
+  },
 ]);
-
 
 //soma dos preços de serviços especificos
 
 db.services.aggregate([
   {
     $match: {
-      serviceId: { $in: ["1", "3"] } // Filtra para incluir apenas os serviços de interesse
-    }
+      serviceId: { $in: ["1", "3"] }, // Filtra para incluir apenas os serviços de interesse
+    },
   },
   {
     $group: {
       _id: null, // Agrupa todos os documentos selecionados
-      totalPrice: { $sum: "$price" } // Calcula a soma dos preços
-    }
-  }
+      totalPrice: { $sum: "$price" }, // Calcula a soma dos preços
+    },
+  },
 ]);
 
-
-
-
-//renamecollection 
+//renamecollection
 
 db.appointments.renameCollection("agendamentos");
 
