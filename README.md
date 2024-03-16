@@ -1,22 +1,29 @@
 # Projeto de banco de dados em MongoDB para o projeto da disciplina de GDI
 
-## Para Carregar a base de dados:
+## Execução:
+
+### Dependências:
+
+<p>Instalar o MongoDB</p>
+<p>Instalar o Node</p>
+<p>Instalar o pacote mongodb do npm</p>
+> $ npm install mongodb
+
+### Para Carregar a base de dados:
 
 <p>a. Execute o Mongo</p>
 
-<p>b. Execute os comandos</p>
+<p>b. Execute os comandos: </p>
 
 > use spa
 >
 > <p></p>
 > load("SPA.js")
 
-<p></p>
-<p>Para rodar as consultas:</p>
+### Para rodar as consultas:
 
-<p>a. Execute o comando</p>
-
-> load("consultas_spa.js")
+<p>Copie a consulta do arquivo consultas_spa.js</p>
+<p>Rode no terminal do mongo</p>
 
 ## Descrição do Mundo Real
 

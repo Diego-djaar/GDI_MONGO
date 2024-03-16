@@ -8,6 +8,7 @@ db.createCollection("clients");
 db.createCollection("appointments");
 
 //inserções em serviços
+db.services.createIndex({ serviceId: 1 }, { unique: true });
 db.services.insertMany([
   {
     serviceId: "1",
@@ -39,6 +40,7 @@ db.services.insertMany([
   },
 ]);
 
+db.professionals.createIndex({ professionalId: 1 }, { unique: true });
 // Inserção na Coleção de Profissionais
 db.professionals.insertMany([
   {
@@ -48,6 +50,7 @@ db.professionals.insertMany([
     availability: "Segunda a Sexta, 9h às 18h",
     salary: 2000,
   },
+
   {
     professionalId: "p2",
     name: "João Pereira",
@@ -63,8 +66,18 @@ db.professionals.insertMany([
     availability: "Quarta a Domingo, 12h às 20h",
     salary: 2500,
   },
+
+  {
+    professionalId: "p4",
+    name: "Mariana Letícia",
+    services: ["1", "2", "3"],
+    availability: "Segunda a Sexta, 9h às 18h",
+    salary: 2000,
+  },
 ]);
 
+
+db.clients.createIndex({ clientId: 1 }, { unique: true });
 // Inserção na Coleção de Clientes
 db.clients.insertMany([
   {
@@ -88,6 +101,7 @@ db.clients.insertMany([
   },
 ]);
 
+db.appointments.createIndex({ appointmentId: 1 }, { unique: true });
 // Inserção na Coleção de Agendamentos
 db.appointments.insertMany([
   {
