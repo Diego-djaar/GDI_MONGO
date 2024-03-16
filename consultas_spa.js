@@ -23,11 +23,11 @@
 //set - ok
 //text - ok
 //search - ok
-//filter
+//filter - ok
 //updateone - ok
 //insertone - ok
 //renamecollection - ok
-//cond
+//cond - ok
 //lookup - ok
 //findone - ok
 //addtoset
@@ -53,7 +53,7 @@ db.professionals.aggregate([{ $project: { name: 1, numberOfServices: { $size: "$
 db.clients.findOne({ clientId: "c1" });
 
 // uso de insertone para insertar novo cliente
-db.clients.insertOne({  clientId: "c4",  name: "Fernanda Lima",  email: "fernanda.lima@example.com",  phones: [21999999999],});
+db.clients.insertOne({ clientId: "c4", name: "Fernanda Lima", email: "fernanda.lima@example.com", phones: { ddd: 81, numero: [21999999999] },});
 
 // uso de updateone para atualizar a descrição de um serviço
 db.services.updateOne(  { serviceId: "1" },  {    $set: { description: "Corte de cabelo unissex, inclui lavagem e secagem." },  });
@@ -83,6 +83,12 @@ db.appointments.find({ $where: function () { let date = new Date(0); date.setUTC
 db.appointments.mapReduce(function () { emit(this.clientId, this.price); }, function (key, values) { return Array.sum(values) }, { query: {}, out: "pagamento" })
 // resultado
 db.pagamento.find()
+
+// retornar clientes com telefones de DDD 81
+db.clients.aggregate([{ $project: { _id: 0, clientId: 1, phones: { $filter: { input: "$phones", as: "phone", cond: { $eq: ["$$phone.ddd", 81] } } } } }])
+
+// retornar bônus de 300 se o salário é 2000 ou menor, 200 se for maior
+db.professionals.aggregate([{ $project: { _id:0,serviceId: 1, bonus: { $cond: [{ $gt: ["$salary", 2000] }, 200, 300] } } }])
 
 // renamecollection para renomear appointments para agendamentos *****rodar no final******
 db.appointments.renameCollection("agendamentos");

@@ -84,20 +84,25 @@ db.clients.insertMany([
     clientId: "c1",
     name: "Ana Costa",
     email: "ana.costa@example.com",
-    phones: [11987654321],
+    phones: [
+      {ddd: 81, numero: 11987654321}
+    ],
   },
   {
     clientId: "c2",
     name: "Lucas Martins",
     email: "lucas.martins@example.com",
-    phones: [21987654321, 81998508382],
+    phones: [
+      { ddd: 81, numero: 21987654321 },
+      { ddd: 83, numero: 998508382 }
+    ],
   },
 
   {
     clientId: "c3",
     name: "Rafael Souza",
     email: "rafael.souza@example.com",
-    phones: [31987654321],
+    phones: [{ ddd: 83, numero: 31987654321 }],
   },
 ]);
 
