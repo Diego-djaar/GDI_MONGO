@@ -93,5 +93,8 @@ db.professionals.aggregate([{ $project: { _id:0,serviceId: 1, bonus: { $cond: [{
 // renamecollection para renomear appointments para agendamentos *****rodar no final******
 db.appointments.renameCollection("agendamentos");
 
+// adiciona o phone { ddd: 81, numero: 21980023759 } ao client c2
+db.clients.updateOne({ clientId: "c2" }, { $addToSet: { phones: { ddd: 81, numero: 21980023759 } } })
+
 //remoção de uma coleção *****rodar no final******
 db.agendamentos.drop();
