@@ -5,16 +5,16 @@
 ### Dependências:
 
 <p>Instalar o MongoDB</p>
-<p>Instalar o Node</p>
-<p>Instalar o pacote mongodb do npm</p>
 
-> $ npm install mongodb
 
 ### Para Carregar a base de dados:
 
-<p>a. Execute o Mongo</p>
 
-<p>b. Execute os comandos: </p>
+<p>a. Execute o Mongod</p>
+
+<p>b. Execute o Mongo</p>
+
+<p>c. Execute os comandos: </p>
 
 > use spa
 >
