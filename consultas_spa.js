@@ -30,7 +30,7 @@
 //cond - ok
 //lookup - ok
 //findone - ok
-//addtoset
+//addtoset - ok
 
 //****************************************************/
 
