@@ -86,7 +86,7 @@ Atributos:
 <li>cleintId: string (o identificador do cliente)</li>
 <li>name: string (nome do profissional)</li>
 <li>email: string (email do cliente)</li>
-<li>phones: list[number] (telefones de contato do cliente)</li>
+<li>phones: list[{ddd: number, numero: number}] (telefones de contato do cliente)</li>
 
 ### Appointments:
 
