@@ -16,8 +16,8 @@
 //sort - ok
 //limit - ok
 //where - ok
-//mapreduce
-//function
+//mapreduce ok
+//function ok
 //pretty - ok
 //all - ok
 //set - ok
@@ -77,7 +77,12 @@ db.appointments.aggregate([{ $match: { serviceId: "2", status: "agendado" } },{$
 db.services.aggregate([{ $match: { serviceId: { $in: ["1", "3"] }, }, }, { $group: { _id: null, totalPrice: { $sum: "$price" }, }, },]);
 
 // serviços dos agendamentos para Maio (index 0)
-db.appointments.find({ $where: function () {let date = new Date(0); date.setUTCMilliseconds(this.date); return date.getMonth() == 5 - 1 }});
+db.appointments.find({ $where: function () { let date = new Date(0); date.setUTCMilliseconds(this.date); return date.getMonth() == 5 - 1 } });
+
+// pagamento total de cada cliente
+db.appointments.mapReduce(function () { emit(this.clientId, this.price); }, function (key, values) { return Array.sum(values) }, { query: {}, out: "pagamento" })
+// resultado
+db.pagamento.find()
 
 // renamecollection para renomear appointments para agendamentos *****rodar no final******
 db.appointments.renameCollection("agendamentos");

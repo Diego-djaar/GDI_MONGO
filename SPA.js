@@ -111,6 +111,7 @@ db.appointments.insertMany([
     serviceId: "2",
     date: new Date("2024-04-15T14:00:00Z"),
     status: "agendado",
+    price: 35.0,
   },
   {
     appointmentId: "a2",
@@ -119,6 +120,7 @@ db.appointments.insertMany([
     serviceId: "3",
     date: new Date("2024-04-20T16:00:00Z"),
     status: "agendado",
+    price: 80.0,
   },
 
   {
@@ -128,6 +130,7 @@ db.appointments.insertMany([
     serviceId: "4",
     date: new Date("2024-05-01T10:00:00Z"),
     status: "agendado",
+    price: 120.0,
   },
   {
     appointmentId: "a4",
@@ -136,5 +139,6 @@ db.appointments.insertMany([
     serviceId: "1",
     date: new Date("2024-05-05T15:00:00Z"),
     status: "agendado",
+    price: 50.0,
   },
 ]);

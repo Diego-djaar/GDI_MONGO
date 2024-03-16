@@ -98,3 +98,4 @@ Atributos:
 <li>serviceId: string (o identificador do serviço agendado)</li>
 <li>date: Date (a data que será realizado o serviço agendado)</li>
 <li>status: string (o estado atual do agendamento)</li>
+<li>price: number (valor total em reais)</li>
